@@ -1,1 +1,4 @@
+# Alchemical secrets
 .venv/
+.env
+*.env.local
