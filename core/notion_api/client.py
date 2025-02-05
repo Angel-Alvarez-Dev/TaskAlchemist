@@ -2,10 +2,18 @@
 from notion_client import Client
 import os
 
+# core/notion_api/client.py
+
 
 class NotionConnector:
-    def __init__(self):
-        self.client = Client(auth=os.getenv("NOTION_TOKEN"))
+    # ... existing code ...
 
-    def get_database(self, database_id: str):
-        return self.client.databases.query(database_id)
+    def mark_task_processed(self, page_id: str, file_path: str):
+        """Update Notion task with file path and clear create flag"""
+        self.client.pages.update(
+            page_id,
+            properties={
+                "Filepath": {"url": file_path},
+                "CreateFile": {"checkbox": False}
+            }
+        )
