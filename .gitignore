@@ -1,11 +1,32 @@
-# Alchemical secrets
+# 🧪 Alchemical secrets - TaskAlchemist 🔮
+
+# Entorno virtual y dependencias
 venv/
+env/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Configuración y variables de entorno
 .env
-.DS_Store
-logs/
-documents/
-*.log
+.env.example
+
+# Archivos generados por editores
 .vscode/
 .idea/
+*.swp  # Vim swap files
+
+# Archivos generados por el sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de logs y registros
+logs/
+*.log
+
+# Archivos de documentos generados
+documents/
+*.pdf
+*.docx
+*.md

@@ -1,7 +1,10 @@
 # TaskAlchemist - Alquimia de Documentos Académicos 🔮
 notion-client==2.2.0          # Conexión con la API de Notion
 python-docx==0.8.11           # Creación/Edición de archivos Word
-docx2pdf==0.1.8               # Conversión DOCX a PDF (Requiere Microsoft Word en Windows)
+docx2pdf==0.1.8               # Conversión DOCX a PDF (Windows)
 pywin32==306                  # Interacción con Windows (para conversión PDF)
+pypandoc==1.11                # Alternativa para conversión DOCX a PDF (Linux/macOS)
 python-dotenv==1.0.0          # Manejo de variables de entorno
 python-dateutil==2.8.2        # Manejo avanzado de fechas
+watchdog==3.0.0               # Monitoreo de cambios en archivos/Notion
+typer==0.9.0                  # CLI interactiva (opcional)
