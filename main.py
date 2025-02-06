@@ -1,8 +1,9 @@
 # main.py
 
-from typing import Dict, Any  # Import necesario para type hints
+from typing import Dict, Any
 from core.notion_api.client import NotionConnector
 from core.document_manager.file_generator import DocumentAlchemist
+from core.document_manager.pdf_converter import PdfAlchemist, AlchemyError
 from dotenv import load_dotenv
 import os
 
@@ -13,41 +14,75 @@ def main():
     try:
         notion = NotionConnector()
         alchemist = DocumentAlchemist()
+        pdf_alchemist = PdfAlchemist()
 
         tasks = notion.get_pending_tasks()
         print(f"🔮 {len(tasks)} tareas listas para transformación")
 
         for task in tasks:
-            task_data = parse_notion_task(task)
-            file_path = alchemist.create_document(task_data)
-            print(f"⚗️ Documento alquimizado: {file_path}")
-            notion.mark_task_processed(task['id'], file_path)
+            try:
+                # Procesar tarea
+                task_data = parse_notion_task(task)
+                file_path = alchemist.create_document(task_data)
+                print(f"⚗️ Documento alquimizado: {file_path}")
+
+                # Marcar como procesada y guardar ruta
+                notion.mark_task_processed(task['id'], file_path)
+
+                # Convertir a PDF si es necesario
+                if task_data.get('convert_to_pdf', False):
+                    pdf_path = pdf_alchemist.transmute_to_pdf(file_path)
+                    print(f"📜 PDF creado: {pdf_path}")
+                    notion.update_task_property(
+                        task['id'], "PDF_Path", pdf_path)
+
+            except AlchemyError as ae:
+                print(f"🧪 Error procesando tarea {
+                      task_data.get('name', 'unknown')}: {str(ae)}")
+                continue  # Continuar con la siguiente tarea
 
     except Exception as e:
         print(f"🔥 Error en el proceso alquímico: {str(e)}")
 
 
 def parse_notion_task(raw_task: Dict[str, Any]) -> Dict[str, str]:
-    """Transforma la respuesta cruda de Notion en datos útiles"""
+    """
+    Transforma la respuesta cruda de Notion en datos útiles
+
+    Args:
+        raw_task (Dict[str, Any]): Tarea sin procesar de Notion
+
+    Returns:
+        Dict[str, str]: Datos procesados de la tarea
+    """
     props = raw_task.get('properties', {})
     return {
         'name': _get_title_prop(props, 'Name'),
         'subject': _get_select_prop(props, 'Subject'),
         'responsible': _get_multi_select_prop(props, 'Responsible'),
-        'file_type': _get_select_prop(props, 'FileType', default='docx')
+        'file_type': _get_select_prop(props, 'FileType', default='docx'),
+        'convert_to_pdf': _get_checkbox_prop(props, 'ConvertToPDF', default=False)
     }
 
 
 def _get_title_prop(props: dict, field: str) -> str:
+    """Extrae el valor de una propiedad de tipo título"""
     return props.get(field, {}).get('title', [{}])[0].get('text', {}).get('content', '')
 
 
 def _get_select_prop(props: dict, field: str, default: str = '') -> str:
+    """Extrae el valor de una propiedad de tipo select"""
     return props.get(field, {}).get('select', {}).get('name', default)
 
 
 def _get_multi_select_prop(props: dict, field: str) -> str:
+    """Extrae los valores de una propiedad de tipo multi-select"""
     return ", ".join([item['name'] for item in props.get(field, {}).get('multi_select', [])])
+
+
+def _get_checkbox_prop(props: dict, field: str, default: bool = False) -> bool:
+    """Extrae el valor de una propiedad de tipo checkbox"""
+    return props.get(field, {}).get('checkbox', default)
 
 
 if __name__ == "__main__":
