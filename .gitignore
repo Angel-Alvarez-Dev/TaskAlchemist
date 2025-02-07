@@ -1,32 +1,43 @@
 # 🧪 Alchemical secrets - TaskAlchemist 🔮
 
-# Entorno virtual y dependencias
+# 🏗️ Entorno virtual y dependencias
 venv/
 env/
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+Pipfile
+Pipfile.lock
+poetry.lock
 
-# Configuración y variables de entorno
+# 🔑 Configuración y variables de entorno
 .env
 .env.example
 
-# Archivos generados por editores
+# 🛠️ Archivos generados por editores y entornos de desarrollo
 .vscode/
 .idea/
 *.swp  # Vim swap files
+*.sublime-workspace
+*.sublime-project
 
-# Archivos generados por el sistema operativo
+# 💾 Archivos generados por el sistema operativo
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Archivos de logs y registros
+# 📑 Archivos de logs y registros
 logs/
 *.log
+*.out
+*.err
 
-# Archivos de documentos generados
+# 📄 Archivos de documentos generados
 documents/
+exports/
 *.pdf
 *.docx
 *.md
+*.txt
+

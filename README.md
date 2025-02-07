@@ -1,17 +1,19 @@
 ## 🔮 TaskAlchemist
 
-TaskAlchemist es una herramienta que automatiza la creación y conversión de documentos académicos a partir de tareas registradas en **Notion**. Convierte tareas en documentos `.docx` y, si es necesario, en **PDF**, permitiendo un flujo de trabajo más eficiente y organizado.  
+TaskAlchemist es una herramienta que automatiza la creación y conversión de documentos académicos a partir de tareas registradas en **Notion**. Convierte tareas en documentos `.docx` y, si es necesario, en **PDF**, permitiendo un flujo de trabajo más eficiente y organizado.
 
-### 🚀 Características  
+### 🚀 Características
 
 ✅ **Integración con Notion** → Obtiene tareas y actualiza su estado automáticamente.  
 ✅ **Generación de documentos** → Crea archivos `.docx` listos para entrega.  
 ✅ **Conversión a PDF** → Opción para convertir documentos a PDF en segundos.  
 ✅ **Automatización total** → Marca tareas como procesadas y almacena las rutas de los archivos generados.  
+✅ **Organización por asignaturas** → Guarda documentos en carpetas específicas según la materia.  
+✅ **Manejo de excepciones** → Control de errores en la conversión y generación de archivos.  
 
 ---
 
-### 🛠 Instalación  
+### 🛠 Instalación
 
 1. **Clonar el repositorio**  
 ```bash
@@ -38,7 +40,7 @@ TaskAlchemist es una herramienta que automatiza la creación y conversión de do
    DATABASE_ID="tu_database_id"
 ```
 
-### 🏗 Estructura del Proyecto  
+### 🏗 Estructura del Proyecto
 
 ```bash
 TaskAlchemist/
@@ -48,6 +50,8 @@ TaskAlchemist/
 │   ├── document_manager/
 │   │   ├── file_generator.py  # Creación de documentos
 │   │   ├── pdf_converter.py   # Conversión a PDF
+│   ├── utils/
+│   │   ├── error_handler.py   # Manejo de errores
 │── main.py  # Punto de entrada
 │── requirements.txt  # Dependencias
 │── .gitignore
@@ -56,7 +60,7 @@ TaskAlchemist/
 
 ---
 
-### 🧙 Contribución  
+### 🧙 Contribución
 
 ¡Las mejoras son bienvenidas! Si quieres contribuir:  
 
@@ -67,6 +71,6 @@ TaskAlchemist/
 
 ---
 
-### 📝 Licencia  
+### 📝 Licencia
 
-Este proyecto está bajo la **Licencia MIT**, lo que significa que puedes modificarlo y distribuirlo libremente.  
+Este proyecto está bajo la **Licencia MIT**, lo que significa que puedes modificarlo y distribuirlo libremente.

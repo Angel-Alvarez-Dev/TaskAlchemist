@@ -1,10 +1,26 @@
 # TaskAlchemist - Alquimia de Documentos Académicos 🔮
-notion-client==2.2.0          # Conexión con la API de Notion
-python-docx==0.8.11           # Creación/Edición de archivos Word
+# 📌 Conexión con Notion
+notion-client==2.2.0          # Interacción con la API de Notion
+
+# 📌 Creación y edición de documentos
+python-docx==0.8.11           # Generación de archivos .docx
+
+# 📌 Conversión de documentos a PDF
 docx2pdf==0.1.8               # Conversión DOCX a PDF (Windows)
-pywin32==306                  # Interacción con Windows (para conversión PDF)
 pypandoc==1.11                # Alternativa para conversión DOCX a PDF (Linux/macOS)
-python-dotenv==1.0.0          # Manejo de variables de entorno
-python-dateutil==2.8.2        # Manejo avanzado de fechas
-watchdog==3.0.0               # Monitoreo de cambios en archivos/Notion
-typer==0.9.0                  # CLI interactiva (opcional)
+
+# 📌 Manejo del sistema operativo y automatización
+pywin32==306                  # Interacción con Windows (para conversión a PDF)
+watchdog==3.0.0               # Monitoreo de cambios en archivos o Notion
+schedule==1.2.1               # Ejecución de tareas programadas automáticamente
+
+# 📌 Manejo avanzado de fechas
+python-dateutil==2.8.2        # Manejo flexible de fechas y formatos
+pytz==2023.3                  # Manejo de zonas horarias
+
+# 📌 CLI y entorno
+typer==0.9.0                  # Interfaz de línea de comandos interactiva
+python-dotenv==1.0.0          # Carga de variables de entorno desde .env
+
+# 📌 Soporte para PDF (Opcional, para Linux/macOS)
+# Requiere tener instalado Pandoc en el sistema
