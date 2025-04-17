@@ -1,27 +1,11 @@
-from core.notion.manager import NotionManager
-from core.documents.docx_builder import DocxBuilder
+from notion_client import database
+from document_generator import latex_generator, pdf_exporter
 
-
-def run():
-    """
-    Ejecuta el flujo principal de TaskAlchemist:
-    1. Obtiene tareas pendientes desde Notion
-    2. Genera documentos .docx para cada tarea
-    3. Actualiza el estado y la ruta del archivo en Notion
-    """
-    manager = NotionManager()
-    tareas = manager.get_tasks(filter_estado="Pendiente")
-
-    for tarea in tareas:
-        # Genera el documento .docx a partir de los datos de la tarea
-        doc_path = DocxBuilder(tarea).generate()
-
-        # Marca la tarea como completada en Notion
-        manager.update_task_status(task_id=tarea["id"], new_status="Completado")
-
-        # Actualiza la ruta del archivo generado
-        manager.update_file_metadata(task_id=tarea["id"], file_url=doc_path)
-
+def main():
+    tarea = database.get_pending_tasks()[0]
+    tex_path = latex_generator.generate_tex(tarea)
+    pdf_exporter.export_pdf(tex_path)
+    database.mark_task_as_done(tarea["id"])
 
 if __name__ == "__main__":
-    run()
+    main()

@@ -1,5 +1,5 @@
-.qodo
-.venv/
 .env
 __pycache__/
-output/
+*.pdf
+*.aux
+*.log
